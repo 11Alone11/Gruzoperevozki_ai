@@ -1,10 +1,12 @@
 /**
  * Собирает dist/ — ровно то, что публикует GitHub Pages.
  *
- * Помимо копирования файлов сборка делает одну важную вещь: считает SHA-256
- * инлайновых <style> и <script> и вписывает Content-Security-Policy в <meta>.
- * GitHub Pages не позволяет задавать HTTP-заголовки, поэтому CSP — единственный
- * способ запретить браузеру грузить что-либо со стороны.
+ * Что делает помимо копирования:
+ *   1. Считает SHA-256 инлайновых <style> и <script> и вписывает CSP в <meta>.
+ *      GitHub Pages не позволяет задавать HTTP-заголовки, CSP — единственный
+ *      способ запретить браузеру грузить что-либо со стороны.
+ *   2. Проставляет сегодняшнюю дату в dateModified (JSON-LD) и lastmod (sitemap),
+ *      чтобы поисковики видели свежесть без ручных правок.
  *
  * Запуск: npm run build
  */
@@ -23,18 +25,28 @@ import path from 'node:path';
 
 const DIST = 'dist';
 
-// Порядок важен: index.html собирается первым, от него зависит отчёт
 const PAGES = ['index.html', '404.html'];
-const STATIC_FILES = ['robots.txt', 'sitemap.xml', 'site.webmanifest'];
+
+// Копируются как есть
+const STATIC_FILES = [
+	'robots.txt',
+	'site.webmanifest',
+	'llms.txt',
+	'llms-full.txt',
+	// ключ IndexNow: файл должен называться <ключ>.txt и лежать в корне
+	'gruzoperevozki-ai.txt',
+];
+
+const INLINE_STYLE = /<style>([\s\S]*?)<\/style>/g;
+const INLINE_SCRIPT =
+	/<script(?![^>]*\bsrc=)(?![^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/g;
 
 const kb = (bytes) => (bytes / 1024).toFixed(1);
 
 const sha256 = (text) =>
 	createHash('sha256').update(text, 'utf8').digest('base64');
 
-const INLINE_STYLE = /<style>([\s\S]*?)<\/style>/g;
-const INLINE_SCRIPT =
-	/<script(?![^>]*\bsrc=)(?![^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/g;
+const today = () => new Date().toISOString().slice(0, 10);
 
 /**
  * Считает хеши инлайновых блоков и подставляет их в CSP.
@@ -59,7 +71,6 @@ function injectCsp(html) {
 		`style-src ${allow(styleHashes)}`,
 		`script-src ${allow(scriptHashes)}`,
 		"manifest-src 'self'",
-		// без этого ломается любой same-origin fetch из страницы
 		"connect-src 'self'",
 		"base-uri 'none'",
 		"form-action 'none'",
@@ -71,18 +82,39 @@ function injectCsp(html) {
 	return html.replace(/(<meta charset="utf-8" \/>)/, `$1\n\t\t${meta}`);
 }
 
+/** Дата модификации, чтобы страница не выглядела заброшенной */
+function setModifiedDate(html, date) {
+	return html.replace(
+		/"dateModified": "\d{4}-\d{2}-\d{2}"/,
+		`"dateModified": "${date}"`,
+	);
+}
+
 async function build() {
 	await rm(DIST, { recursive: true, force: true });
 	await mkdir(path.join(DIST, 'images'), { recursive: true });
 
+	const date = today();
+
 	for (const file of PAGES) {
 		const html = await readFile(file, 'utf8');
-		await writeFile(path.join(DIST, file), injectCsp(html), 'utf8');
+		await writeFile(
+			path.join(DIST, file),
+			setModifiedDate(injectCsp(html), date),
+			'utf8',
+		);
 	}
 
 	for (const file of STATIC_FILES) {
 		await cp(file, path.join(DIST, file));
 	}
+
+	const sitemap = await readFile('sitemap.xml', 'utf8');
+	await writeFile(
+		path.join(DIST, 'sitemap.xml'),
+		sitemap.replace(/<lastmod>[^<]*<\/lastmod>/g, `<lastmod>${date}</lastmod>`),
+		'utf8',
+	);
 
 	// Без него GitHub Pages прогоняет файлы через Jekyll и игнорирует часть путей
 	await writeFile(path.join(DIST, '.nojekyll'), '', 'utf8');
@@ -98,7 +130,7 @@ async function build() {
 	}
 
 	await verifyReferencedImages();
-	await report(imageBytes);
+	await report(imageBytes, date);
 }
 
 /**
@@ -128,7 +160,7 @@ async function verifyReferencedImages() {
 	}
 }
 
-async function report(imageBytes) {
+async function report(imageBytes, date) {
 	const files = [];
 
 	async function walk(dir) {
@@ -145,7 +177,9 @@ async function report(imageBytes) {
 	const htmlSize =
 		files.find((file) => file.full.endsWith('index.html'))?.size ?? 0;
 
-	console.log(`dist/ собран: ${files.length} файлов, ${kb(total)} КБ`);
+	console.log(
+		`dist/ собран: ${files.length} файлов, ${kb(total)} КБ (${date})`,
+	);
 	console.log(`  index.html — ${kb(htmlSize)} КБ`);
 	console.log(`  картинки   — ${kb(imageBytes)} КБ`);
 }

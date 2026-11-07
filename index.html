@@ -14,7 +14,10 @@
 			rel="canonical"
 			href="https://11alone11.github.io/Gruzoperevozki_ai/"
 		/>
-		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
 		<meta name="theme-color" content="#fcdd76" />
 		<meta name="format-detection" content="telephone=yes" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -67,12 +70,23 @@
 			name="twitter:image"
 			content="https://11alone11.github.io/Gruzoperevozki_ai/images/og-preview.jpg"
 		/>
+		<meta
+			name="twitter:image:alt"
+			content="Аренда спецтехники в Минске: погрузчики Амкодор и самосвал МАЗ"
+		/>
 
 		<!-- Иконки и манифест -->
 		<link rel="icon" href="images/favicon.ico" sizes="32x32" />
 		<link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
 		<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 		<link rel="manifest" href="site.webmanifest" />
+		<link rel="sitemap" type="application/xml" href="sitemap.xml" />
+		<link
+			rel="alternate"
+			type="text/plain"
+			href="llms.txt"
+			title="Краткое описание сайта для языковых моделей"
+		/>
 
 		<!-- Структурированные данные -->
 		<script type="application/ld+json">
@@ -91,6 +105,32 @@
 						}
 					},
 					{
+						"@type": "WebPage",
+						"@id": "https://11alone11.github.io/Gruzoperevozki_ai/#webpage",
+						"url": "https://11alone11.github.io/Gruzoperevozki_ai/",
+						"name": "Аренда спецтехники в Минске — погрузчики и самосвалы",
+						"description": "Аренда погрузчиков Амкодор 332 и 342, самосвала МАЗ 5551 в Минске. Техника с опытным экипажем, выезд на объект.",
+						"isPartOf": {
+							"@id": "https://11alone11.github.io/Gruzoperevozki_ai/#website"
+						},
+						"about": {
+							"@id": "https://11alone11.github.io/Gruzoperevozki_ai/#business"
+						},
+						"inLanguage": "ru",
+						"datePublished": "2026-11-07",
+						"dateModified": "2026-11-07",
+						"primaryImageOfPage": {
+							"@type": "ImageObject",
+							"url": "https://11alone11.github.io/Gruzoperevozki_ai/images/og-preview.jpg",
+							"width": 1200,
+							"height": 630
+						},
+						"speakable": {
+							"@type": "SpeakableSpecification",
+							"cssSelector": [".hero__title", ".hero__lead"]
+						}
+					},
+					{
 						"@type": "LocalBusiness",
 						"@id": "https://11alone11.github.io/Gruzoperevozki_ai/#business",
 						"name": "Аренда спецтехники в Минске",
@@ -104,6 +144,15 @@
 						],
 						"telephone": "+375440000000",
 						"email": "zakaz@example.com",
+						"contactPoint": [
+							{
+								"@type": "ContactPoint",
+								"telephone": "+375440000000",
+								"contactType": "customer service",
+								"areaServed": "BY",
+								"availableLanguage": ["ru"]
+							}
+						],
 						"priceRange": "40–80 BYN/час",
 						"currenciesAccepted": "BYN",
 						"address": {
@@ -119,7 +168,10 @@
 							"longitude": 27.56
 						},
 						"areaServed": [
-							{ "@type": "City", "name": "Минск" },
+							{
+								"@type": "City",
+								"name": "Минск"
+							},
 							{
 								"@type": "AdministrativeArea",
 								"name": "Минская область"

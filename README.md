@@ -17,6 +17,9 @@
 ├── robots.txt
 ├── sitemap.xml
 ├── site.webmanifest
+├── llms.txt                 ← краткое описание сайта для языковых моделей
+├── llms-full.txt            ← полный текст страницы для LLM
+├── gruzoperevozki-ai.txt    ← ключ IndexNow
 ├── images/
 │   ├── amkodor-332-{416,640,832}.{avif,webp}  ← погрузчик Амкодор 332
 │   ├── amkodor-342-{416,640,832}.{avif,webp}  ← погрузчик Амкодор 342
@@ -26,8 +29,9 @@
 │   ├── og-preview.jpg                         ← превью 1200×630 для соцсетей
 │   └── source/                                ← исходники (в публикацию не идут)
 ├── scripts/
-│   ├── build.mjs              ← собирает dist/ и вписывает CSP
+│   ├── build.mjs              ← собирает dist/, вписывает CSP и даты
 │   ├── set-domain.sh          ← замена домена одной командой
+│   ├── indexnow.sh            ← мгновенное уведомление поисковиков
 │   └── lint-inline-script.mjs ← линтинг инлайнового <script>
 ├── .github/workflows/deploy.yml
 ├── .prettierrc.json, .editorconfig, eslint.config.js
@@ -113,6 +117,39 @@ CSP считается заново на каждой сборке, поэтом
 Что нельзя включить на GitHub Pages: HSTS, `X-Frame-Options`,
 `frame-ancestors` (в `<meta>` не работает). Если понадобится — только через
 свой прокси или другой хостинг.
+
+---
+
+## SEO и обнаружение
+
+Всё, что нужно поисковикам и ИИ-агентам, лежит в корне и попадает в `dist/`:
+
+| Файл                    | Для чего                                                                                  |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| `sitemap.xml`           | карта сайта с image-разметкой (4 изображения)                                             |
+| `robots.txt`            | разрешает обход, указывает на sitemap и `llms.txt`                                        |
+| `llms.txt`              | краткое структурированное описание сайта по стандарту [llmstxt.org](https://llmstxt.org/) |
+| `llms-full.txt`         | полный текст страницы в markdown — чтобы модель не парсила HTML                           |
+| `gruzoperevozki-ai.txt` | ключ IndexNow для быстрой переиндексации                                                  |
+| JSON-LD                 | `WebSite` + `WebPage` + `LocalBusiness` + `FAQPage` одним `@graph`                        |
+| OG / Twitter            | превью 1200×630, `og:image:alt`, `twitter:image:alt`                                      |
+
+В `<head>` дополнительно: `<link rel="canonical">`, `<link rel="sitemap">`,
+`<link rel="alternate" type="text/plain" href="llms.txt">`, расширенный
+`robots` (`max-snippet:-1`, `max-image-preview:large`), `speakable` в разметке
+для голосовых ответов.
+
+Сборка сама проставляет сегодняшнюю дату в `dateModified` и `lastmod` —
+страница не выглядит заброшенной без ручных правок.
+
+После публикации можно разово пинговать поисковики:
+
+```bash
+bash scripts/indexnow.sh
+```
+
+Это отправит адрес в Bing, Yandex и Seznam через [IndexNow](https://www.indexnow.org/).
+Индексируется быстрее, чем ждать обхода по sitemap.
 
 ---
 

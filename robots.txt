@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Краткое описание сайта для языковых моделей
+# llms.txt: https://11alone11.github.io/Gruzoperevozki_ai/llms.txt
+
 Sitemap: https://11alone11.github.io/Gruzoperevozki_ai/sitemap.xml
