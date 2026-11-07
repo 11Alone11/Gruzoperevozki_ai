@@ -968,7 +968,186 @@
 				white-space: nowrap;
 			}
 
-			/* 15. Адаптив */
+			/* 15. Навигация по разделам */
+
+			.section-nav {
+				display: flex;
+				width: 100%;
+				gap: 10px;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+
+			.section-nav__link {
+				padding: 10px 18px;
+				font-size: 16px;
+				background: var(--color-brand);
+				border-radius: 999px;
+				transition: box-shadow 0.2s ease;
+			}
+
+			.section-nav__link:hover {
+				box-shadow: var(--shadow-card);
+			}
+
+			/* 16. Услуги */
+
+			.services {
+				display: grid;
+				width: 100%;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 16px;
+			}
+
+			.service {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				padding: 22px 20px;
+				border: 2px solid var(--color-brand);
+				border-radius: var(--radius);
+			}
+
+			.service__title {
+				font-size: 19px;
+			}
+
+			.service__text {
+				font-size: 16px;
+				font-weight: 400;
+			}
+
+			/* 17. Районы выезда */
+
+			.districts {
+				display: grid;
+				width: 100%;
+				max-width: 980px;
+				grid-template-columns: 1fr 1fr;
+				gap: 20px;
+			}
+
+			.districts__group {
+				padding: 22px 24px;
+				background: var(--color-brand);
+				border-radius: var(--radius);
+			}
+
+			.districts__title {
+				margin-bottom: 10px;
+				font-size: 19px;
+			}
+
+			.districts__list {
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 1.6;
+			}
+
+			/* 18. Шаги работы */
+
+			.steps {
+				display: grid;
+				width: 100%;
+				max-width: 1100px;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 16px;
+				counter-reset: step;
+			}
+
+			.step {
+				position: relative;
+				padding: 22px 20px 22px 64px;
+				border: 2px solid var(--color-brand);
+				border-radius: var(--radius);
+				counter-increment: step;
+			}
+
+			.step::before {
+				content: counter(step);
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				display: grid;
+				width: 30px;
+				height: 30px;
+				font-size: 16px;
+				font-weight: 600;
+				background: var(--color-brand);
+				border-radius: 50%;
+				place-items: center;
+			}
+
+			.step__title {
+				margin-bottom: 6px;
+				font-size: 18px;
+			}
+
+			.step__text {
+				font-size: 16px;
+				font-weight: 400;
+			}
+
+			/* 19. Примеры работ */
+
+			.cases {
+				display: grid;
+				width: 100%;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 16px;
+			}
+
+			.case {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				padding: 22px 20px;
+				background: var(--color-brand);
+				border-radius: var(--radius);
+			}
+
+			.case__title {
+				font-size: 18px;
+			}
+
+			.case__text {
+				font-size: 16px;
+				font-weight: 400;
+			}
+
+			.case__result {
+				margin-top: auto;
+				padding-top: 8px;
+				font-size: 16px;
+				font-weight: 600;
+			}
+
+			/* 20. Документы и оплата */
+
+			.checklist {
+				display: grid;
+				width: 100%;
+				max-width: 900px;
+				grid-template-columns: 1fr 1fr;
+				gap: 12px;
+			}
+
+			.checklist__item {
+				position: relative;
+				padding-left: 30px;
+				font-size: 17px;
+				font-weight: 400;
+			}
+
+			.checklist__item::before {
+				content: '✓';
+				position: absolute;
+				left: 0;
+				font-weight: 700;
+				color: #2e7d32;
+			}
+
+			/* 21. Адаптив */
 
 			@media (max-width: 1200px) {
 				.machines {
@@ -1017,6 +1196,15 @@
 					max-width: 480px;
 				}
 
+				.services {
+					grid-template-columns: repeat(2, 1fr);
+				}
+
+				.steps,
+				.cases {
+					grid-template-columns: repeat(2, 1fr);
+				}
+
 				.site-footer__list {
 					display: grid;
 					grid-template-columns: 1fr 1fr;
@@ -1047,6 +1235,11 @@
 
 				.review-card {
 					padding: 20px;
+				}
+
+				.districts,
+				.checklist {
+					grid-template-columns: 1fr;
 				}
 
 				.site-footer {
@@ -1114,7 +1307,7 @@
 				}
 			}
 
-			/* 16. Отключение анимаций */
+			/* 22. Отключение анимаций */
 
 			@media (prefers-reduced-motion: reduce) {
 				*,
@@ -1188,6 +1381,15 @@
 							<a href="#contact" class="button button--outline">Связаться</a>
 						</div>
 					</section>
+
+					<nav class="section-nav" aria-label="Разделы страницы">
+						<a class="section-nav__link" href="#fleet">Автопарк</a>
+						<a class="section-nav__link" href="#services">Услуги</a>
+						<a class="section-nav__link" href="#price">Цены</a>
+						<a class="section-nav__link" href="#districts">Районы выезда</a>
+						<a class="section-nav__link" href="#reviews">Отзывы</a>
+						<a class="section-nav__link" href="#contact">Контакты</a>
+					</nav>
 
 					<section class="section" id="fleet" aria-labelledby="fleet-title">
 						<h2 class="section__title" id="fleet-title">Наш автопарк</h2>
@@ -1528,6 +1730,208 @@
 						</div>
 					</section>
 
+					<section
+						class="section"
+						id="services"
+						aria-labelledby="services-title"
+					>
+						<h2 class="section__title" id="services-title">Что мы делаем</h2>
+						<p class="section__lead">
+							Техника берётся под задачу, а не «просто покататься». Вот что чаще
+							всего заказывают в Минске и пригороде.
+						</p>
+
+						<div class="services">
+							<article class="service">
+								<h3 class="service__title">Планировка участка</h3>
+								<p class="service__text">
+									Выравниваем и планируем грунт под газон, дорожки, фундамент
+									или парковку. Погрузчик с ковшом снимает лишний слой и
+									разравнивает основание.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Уборка и вывоз снега</h3>
+								<p class="service__text">
+									Расчищаем дворы, парковки, подъездные пути и территории
+									предприятий. Работаем по Минску и Минской области, в том числе
+									ночью и в выходные.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Погрузка и разгрузка</h3>
+								<p class="service__text">
+									Грузим песок, щебень, грунт, стройматериалы и крупногабаритные
+									грузы. Разгружаем фуры и контейнеры без ручного труда.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Вывоз грунта и мусора</h3>
+								<p class="service__text">
+									Самосвал МАЗ 5551 забирает до 8,5 тонны за рейс. Вывозим грунт
+									после земляных работ, строительный мусор и остатки демонтажа.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Рытьё котлованов</h3>
+								<p class="service__text">
+									Разрабатываем грунт под фундамент, септик, бассейн или пруд.
+									Глубина и объём обсуждаются на месте после осмотра участка.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Доставка сыпучих</h3>
+								<p class="service__text">
+									Привозим песок, щебень и гравий самосвалом. Материал можно
+									сразу разгрузить в нужную точку участка, а не у забора.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Расчистка территории</h3>
+								<p class="service__text">
+									Убираем кустарник, остатки построек и строительный мусор перед
+									началом работ. Освобождаем площадку под новое строительство.
+								</p>
+							</article>
+
+							<article class="service">
+								<h3 class="service__title">Длительная аренда</h3>
+								<p class="service__text">
+									Техника на объекте неделю, месяц или весь сезон. Для
+									постоянных заказчиков условия обсуждаются отдельно.
+								</p>
+							</article>
+						</div>
+					</section>
+
+					<section
+						class="section"
+						id="districts"
+						aria-labelledby="districts-title"
+					>
+						<h2 class="section__title" id="districts-title">Районы выезда</h2>
+						<p class="section__lead">
+							Техника базируется в Минске. Работаем по всем районам города и в
+							пригороде; доставка за МКАД считается отдельно и зависит от
+							расстояния.
+						</p>
+
+						<div class="districts">
+							<div class="districts__group">
+								<h3 class="districts__title">Районы Минска</h3>
+								<p class="districts__list">
+									Центральный, Советский, Первомайский, Партизанский, Заводской,
+									Ленинский, Октябрьский, Московский, Фрунзенский
+								</p>
+							</div>
+
+							<div class="districts__group">
+								<h3 class="districts__title">Пригород</h3>
+								<p class="districts__list">
+									Боровляны, Колодищи, Смолевичи, Фаниполь, Дзержинск, Логойск,
+									Заславль, Мачулищи, Сеница, Острошицкий Городок
+								</p>
+							</div>
+						</div>
+					</section>
+
+					<section class="section" id="how" aria-labelledby="how-title">
+						<h2 class="section__title" id="how-title">Как мы работаем</h2>
+
+						<ol class="steps">
+							<li class="step">
+								<h3 class="step__title">Заявка</h3>
+								<p class="step__text">
+									Звоните или пишете на почту. Достаточно сказать, что нужно
+									сделать и где находится объект.
+								</p>
+							</li>
+							<li class="step">
+								<h3 class="step__title">Уточнение задачи</h3>
+								<p class="step__text">
+									Подбираем технику и считаем стоимость: объём работ, часы,
+									доставка. Называем цену до начала работ.
+								</p>
+							</li>
+							<li class="step">
+								<h3 class="step__title">Подача техники</h3>
+								<p class="step__text">
+									Машина с оператором приезжает на объект в согласованное время.
+									Выезд возможен в день обращения.
+								</p>
+							</li>
+							<li class="step">
+								<h3 class="step__title">Работа и закрытие</h3>
+								<p class="step__text">
+									Выполняем работы, при необходимости оформляем документы для
+									бухгалтерии: договор, акт, ЭСЧФ.
+								</p>
+							</li>
+						</ol>
+					</section>
+
+					<section class="section" id="cases" aria-labelledby="cases-title">
+						<h2 class="section__title" id="cases-title">Примеры работ</h2>
+
+						<div class="cases">
+							<article class="case">
+								<h3 class="case__title">Расчистка снега на парковке</h3>
+								<p class="case__text">
+									Парковка торгового объекта в Заводском районе, 1 200 м².
+									Работали ночью, чтобы не мешать покупателям.
+								</p>
+								<p class="case__result">Амкодор 342 · 5 часов · 400 BYN</p>
+							</article>
+
+							<article class="case">
+								<h3 class="case__title">Планировка участка под газон</h3>
+								<p class="case__text">
+									Частный дом в Боровлянах, 8 соток. Сняли лишний грунт,
+									выровняли основание под газон и дорожки.
+								</p>
+								<p class="case__result">Амкодор 332 · 9 часов · 720 BYN</p>
+							</article>
+
+							<article class="case">
+								<h3 class="case__title">Вывоз грунта после котлована</h3>
+								<p class="case__text">
+									Стройка в Колодищах. Вывезли 60 тонн грунта за восемь рейсов,
+									площадку освободили за два дня.
+								</p>
+								<p class="case__result">МАЗ 5551 · 8 рейсов · 960 BYN</p>
+							</article>
+						</div>
+					</section>
+
+					<section
+						class="section"
+						id="documents"
+						aria-labelledby="documents-title"
+					>
+						<h2 class="section__title" id="documents-title">
+							Документы и оплата
+						</h2>
+						<p class="section__lead">
+							Работаем и с частными лицами, и с организациями. Для бухгалтерии
+							готовим полный комплект документов.
+						</p>
+
+						<ul class="checklist">
+							<li class="checklist__item">Работа по договору</li>
+							<li class="checklist__item">Акт выполненных работ</li>
+							<li class="checklist__item">ЭСЧФ для плательщиков НДС</li>
+							<li class="checklist__item">Безналичный расчёт и наличные</li>
+							<li class="checklist__item">Оплата по факту работ</li>
+							<li class="checklist__item">Счёт на предоплату для юрлиц</li>
+						</ul>
+					</section>
+
 					<section class="section" id="reviews" aria-labelledby="reviews-title">
 						<h2 class="section__title" id="reviews-title">
 							Отзывы наших клиентов
@@ -1707,6 +2111,78 @@
 									на <a href="mailto:zakaz@example.com">zakaz@example.com</a>.
 									Мы уточним задачу и назовём стоимость.
 								</p>
+
+								<div class="faq__item">
+									<h3 class="faq__question">
+										Можно ли заказать технику на несколько дней?
+									</h3>
+									<p class="faq__answer">
+										Да. Для длительной аренды считаем не по часам, а по сменам
+										или суткам — так выходит дешевле. Условия обсуждаются
+										отдельно под задачу и срок.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">Кто оплачивает топливо?</h3>
+									<p class="faq__answer">
+										Топливо входит в стоимость часа работы. Отдельно доплачивать
+										за ГСМ не нужно — заправка и обслуживание машины на нашей
+										стороне.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">
+										Что если техника сломается на объекте?
+									</h3>
+									<p class="faq__answer">
+										Ремонт и обслуживание — наша ответственность. При поломке
+										заменим машину на аналогичную, чтобы работа на объекте не
+										останавливалась.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">
+										Нужен ли пропуск для работы в Минске?
+									</h3>
+									<p class="faq__answer">
+										Если объект в зоне ограниченного доступа, пропуск оформляет
+										заказчик. Скажите об этом заранее — учтём время на
+										оформление в графике.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">
+										Работаете ли в выходные и праздники?
+									</h3>
+									<p class="faq__answer">
+										Да, при необходимости работаем в выходные, праздники и
+										ночью. Такие смены оговариваются заранее, чтобы согласовать
+										график оператора.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">Какой минимальный заказ?</h3>
+									<p class="faq__answer">
+										Минимальный заказ — два часа работы. Если задача небольшая,
+										стоимость всё равно считается от двух часов, включая подачу
+										техники.
+									</p>
+								</div>
+
+								<div class="faq__item">
+									<h3 class="faq__question">
+										Можно ли заказать доставку песка или щебня?
+									</h3>
+									<p class="faq__answer">
+										Да, самосвал МАЗ 5551 везёт до 8,5 тонны за рейс. Материал
+										можно разгрузить в нужной точке участка, а не у забора.
+									</p>
+								</div>
 							</div>
 						</div>
 					</section>

@@ -23,6 +23,13 @@
 - Почта: zakaz@example.com
 - Город: Минск, Беларусь
 
+## Страницы сайта
+
+- [Главная — обзор автопарка и цен](https://11alone11.github.io/Gruzoperevozki_ai/)
+- [Аренда погрузчика в Минске](https://11alone11.github.io/Gruzoperevozki_ai/arenda-pogruzchika-minsk/): Амкодор 332 и 342, 80 BYN/час, что можно сделать погрузчиком
+- [Аренда самосвала в Минске](https://11alone11.github.io/Gruzoperevozki_ai/arenda-samosvala-minsk/): МАЗ 5551, 8,5 тонны, 40 BYN/час, вывоз грунта и мусора
+- [Уборка и вывоз снега погрузчиком](https://11alone11.github.io/Gruzoperevozki_ai/uborka-snega-pogruzchikom/): расчистка дворов, парковок и территорий, работа ночью
+
 ## Служебное
 
 - [Карта сайта](https://11alone11.github.io/Gruzoperevozki_ai/sitemap.xml)
