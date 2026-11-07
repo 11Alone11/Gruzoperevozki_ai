@@ -1,0 +1,28 @@
+{
+	"useTabs": true,
+	"tabWidth": 2,
+	"printWidth": 80,
+	"singleQuote": true,
+	"semi": true,
+	"trailingComma": "all",
+	"arrowParens": "always",
+	"endOfLine": "lf",
+	"htmlWhitespaceSensitivity": "css",
+	"bracketSameLine": false,
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": {
+				"useTabs": false,
+				"tabWidth": 2,
+				"proseWrap": "preserve"
+			}
+		},
+		{
+			"files": ["*.json", "*.webmanifest"],
+			"options": {
+				"useTabs": true
+			}
+		}
+	]
+}

@@ -1,0 +1,21 @@
+{
+	"name": "borisov-loading",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Лендинг аренды спецтехники в Минске — статический сайт на GitHub Pages",
+	"type": "module",
+	"scripts": {
+		"build": "node scripts/build.mjs",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"lint": "npm run lint:node && npm run lint:inline",
+		"lint:node": "eslint scripts eslint.config.js",
+		"lint:inline": "node scripts/lint-inline-script.mjs",
+		"check": "npm run format:check && npm run lint"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.17.0",
+		"eslint": "^9.17.0",
+		"prettier": "^3.4.2"
+	}
+}
