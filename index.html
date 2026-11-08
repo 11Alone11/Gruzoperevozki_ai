@@ -560,6 +560,11 @@
 				gap: 20px;
 			}
 
+			/* две карточки в ряд, когда техники на странице меньше трёх */
+			.machines--two {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
 			.machine-card {
 				display: flex;
 				flex-direction: column;
