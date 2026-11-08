@@ -126,6 +126,21 @@ function parseFrontMatter(source) {
 /** Подставляет в каркас заголовок, описание, канонический адрес и контент */
 function renderPage(shell, meta, content, sharedGraph) {
 	const url = `${BASE}${meta.path}`;
+	const crumb = meta.crumb || meta.title;
+
+	// хлебные крошки — первым элементом контента
+	const breadcrumbs = `\t\t\t<nav class="breadcrumbs" aria-label="Хлебные крошки">
+\t\t\t\t<a class="breadcrumbs__link" href="./">Главная</a>
+\t\t\t\t<span class="breadcrumbs__separator">/</span>
+\t\t\t\t<span aria-current="page">${crumb}</span>
+\t\t\t</nav>
+
+`;
+
+	content = content.replace(
+		'<div class="page__content">',
+		`<div class="page__content">\n${breadcrumbs}`,
+	);
 
 	return (
 		shell
@@ -167,11 +182,18 @@ function renderPage(shell, meta, content, sharedGraph) {
 				'<a href="./" aria-label="Спецтехника Минск — на главную">',
 				'<a href="../" aria-label="Спецтехника Минск — на главную">',
 			)
+			// текущая страница помечается в меню подвала
+			.replace(
+				`<a class="site-footer__nav-link" href="${meta.path.replace(/^\/|\/$/g, '')}/">`,
+				`<a class="site-footer__nav-link" aria-current="page" href="${meta.path.replace(/^\/|\/$/g, '')}/">`,
+			)
 			// относительные пути из каркаса поднимаем на уровень выше
 			.replace(
-				/((?:src|href)=")(images\/|site\.webmanifest|sitemap\.xml|llms\.txt)/g,
+				/((?:src|href)=")(images\/|site\.webmanifest|sitemap\.xml|llms\.txt|arenda-pogruzchika-minsk\/|arenda-samosvala-minsk\/|uborka-snega-pogruzchikom\/)/g,
 				'$1../$2',
 			)
+			// «на главную» на подстранице
+			.replace(/(href=")\.\/(?=")/g, '$1../')
 			.replace(
 				/<script type="application\/ld\+json">[\s\S]*?<\/script>/,
 				`<script type="application/ld+json">${JSON.stringify({
@@ -193,6 +215,19 @@ function renderPage(shell, meta, content, sharedGraph) {
 								'@type': 'SpeakableSpecification',
 								cssSelector: ['.hero__title', '.hero__lead'],
 							},
+						},
+						{
+							'@type': 'BreadcrumbList',
+							'@id': `${url}#breadcrumbs`,
+							itemListElement: [
+								{
+									'@type': 'ListItem',
+									position: 1,
+									name: 'Главная',
+									item: `${BASE}/`,
+								},
+								{ '@type': 'ListItem', position: 2, name: crumb, item: url },
+							],
 						},
 						{ '@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: [] },
 					],

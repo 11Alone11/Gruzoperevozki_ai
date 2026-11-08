@@ -931,6 +931,39 @@
 				opacity: 0.75;
 			}
 
+			.machine-card__link {
+				margin-top: 4px;
+				font-size: 16px;
+				font-weight: 600;
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
+			.machine-card__link:hover {
+				text-decoration-thickness: 2px;
+			}
+
+			/* 13.1. Хлебные крошки */
+
+			.breadcrumbs {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				align-items: center;
+				width: 100%;
+				font-size: 16px;
+				font-weight: 400;
+			}
+
+			.breadcrumbs__link {
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
+			.breadcrumbs__separator {
+				opacity: 0.5;
+			}
+
 			/* 14. Подвал */
 
 			.site-footer {
@@ -971,6 +1004,26 @@
 			.site-footer__link {
 				display: block;
 				white-space: nowrap;
+			}
+
+			.site-footer__nav {
+				display: flex;
+				gap: 8px 24px;
+				flex-wrap: wrap;
+				justify-content: center;
+				padding: 10px 0 4px;
+				font-size: 16px;
+				font-weight: 400;
+			}
+
+			.site-footer__nav-link {
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
+			.site-footer__nav-link[aria-current='page'] {
+				font-weight: 600;
+				text-decoration: none;
 			}
 
 			/* 15. Навигация по разделам */
@@ -1436,6 +1489,9 @@
 									</picture>
 									<h3 class="machine-card__name">МАЗ 5551</h3>
 									<p class="machine-card__price"><strong>40</strong> BYN/час</p>
+									<a class="machine-card__link" href="arenda-samosvala-minsk/">
+										Подробнее об аренде самосвала
+									</a>
 								</div>
 
 								<dl class="machine-card__specs">
@@ -1504,6 +1560,12 @@
 									</picture>
 									<h3 class="machine-card__name">Амкодор 332</h3>
 									<p class="machine-card__price"><strong>80</strong> BYN/час</p>
+									<a
+										class="machine-card__link"
+										href="arenda-pogruzchika-minsk/"
+									>
+										Подробнее об аренде погрузчика
+									</a>
 								</div>
 
 								<dl class="machine-card__specs">
@@ -1572,6 +1634,12 @@
 									</picture>
 									<h3 class="machine-card__name">Амкодор 342</h3>
 									<p class="machine-card__price"><strong>80</strong> BYN/час</p>
+									<a
+										class="machine-card__link"
+										href="arenda-pogruzchika-minsk/"
+									>
+										Подробнее об аренде погрузчика
+									</a>
 								</div>
 
 								<dl class="machine-card__specs">
@@ -1761,7 +1829,9 @@
 							</article>
 
 							<article class="service">
-								<h3 class="service__title">Уборка и вывоз снега</h3>
+								<h3 class="service__title">
+									<a href="uborka-snega-pogruzchikom/">Уборка и вывоз снега</a>
+								</h3>
 								<p class="service__text">
 									Расчищаем дворы, парковки, подъездные пути и территории
 									предприятий. Работаем по Минску и Минской области, в том числе
@@ -2329,6 +2399,19 @@
 						</a>
 					</li>
 				</ul>
+
+				<nav class="site-footer__nav" aria-label="Разделы сайта">
+					<a class="site-footer__nav-link" href="./">Главная</a>
+					<a class="site-footer__nav-link" href="arenda-pogruzchika-minsk/">
+						Аренда погрузчика
+					</a>
+					<a class="site-footer__nav-link" href="arenda-samosvala-minsk/">
+						Аренда самосвала
+					</a>
+					<a class="site-footer__nav-link" href="uborka-snega-pogruzchikom/">
+						Уборка снега
+					</a>
+				</nav>
 			</div>
 		</footer>
 
